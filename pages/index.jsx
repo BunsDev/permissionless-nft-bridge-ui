@@ -361,7 +361,6 @@ const HomePage = () => {
     return () => clearInterval(interval)
   }, [
     account,
-    chainId,
     fetch,
     crossWeb3[state.bridge.toChain.id],
     crossWeb3[state.bridge.fromChain.id]
