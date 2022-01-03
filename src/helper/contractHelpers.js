@@ -9,11 +9,5 @@ const getContract = (abi, address, web3) => {
 }
 
 export const getMultiCallContract = (web3, chainId = ChainMap.ETH) => {
-  console.log({
-    MultiCall_ABI,
-    multi: MULTICALL_NETWORKS[chainId],
-    web3,
-    chainId
-  })
   return getContract(MultiCall_ABI, MULTICALL_NETWORKS[chainId], web3)
 }

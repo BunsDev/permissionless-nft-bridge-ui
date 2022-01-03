@@ -4,7 +4,7 @@ const CopyToClipboard = dynamic(() => import('react-copy-to-clipboard'))
 // import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { CopyBtn, WrapTokenAddress, WrapperInfo } from '.'
 import { useMuonState } from '../../context'
-import { getToken } from '../../helper/Tokens'
+import { getNFT } from '../../helper/Tokens'
 import { useCrossWeb3 } from '../../hooks/useWeb3'
 import { Type } from '../common/Text'
 
@@ -31,14 +31,16 @@ const CopyTokenAddress = (props) => {
       //   )
       // })
       // if (!token) {
-      let token = await getToken(
-        address,
-        state.account,
-        toChain ? state.bridge.toChain : state.bridge.fromChain,
-        web3
-      )
-      // }
-      setToken(token)
+      if (address) {
+        let token = await getNFT(
+          address,
+          state.account,
+          toChain ? state.bridge.toChain : state.bridge.fromChain,
+          web3
+        )
+        // }
+        setToken(token)
+      }
     }
     findToken()
   }, [state.account, state.bridge.token, toChain])
@@ -53,7 +55,6 @@ const CopyTokenAddress = (props) => {
   // alert(token)
   return (
     <WrapperInfo
-      maxWidth="450px"
       width="100%"
       justifyContent="space-between"
       padding="0 15px"

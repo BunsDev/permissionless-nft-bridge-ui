@@ -257,7 +257,6 @@ const HomePage = () => {
               crossWeb3[state.bridge.toChain.id]
             )
           }
-          console.log({ ...claim, token })
           claims.push({ ...claim, token })
         }
       } catch (error) {
@@ -579,7 +578,7 @@ const HomePage = () => {
           type: 'UPDATE_WRONG_ID',
           payload: true
         })
-        console.log('multicall error happened ', error)
+        console.log('multicall error happened  in approve', error)
         return
       }
 
@@ -976,7 +975,6 @@ const HomePage = () => {
           depositNetwork: fromChain.name.toLocaleLowerCase()
         })
         .call()
-      console.log(muonResponse)
       if (!muonResponse.confirmed) {
         const errorMessage = muonResponse.error?.message
           ? muonResponse.error.message
@@ -1203,7 +1201,6 @@ const HomePage = () => {
           mainNetwork: state.bridge.fromChain.id
         })
         .call()
-      console.log(muonResponse)
       if (!muonResponse.confirmed) {
         const errorMessage = muonResponse.error?.message
           ? muonResponse.error.message

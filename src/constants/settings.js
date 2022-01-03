@@ -26,23 +26,3 @@ export const NFT = [
     }
   }
 ]
-
-export const tokens = [
-  {
-    id: '1',
-    symbol: {
-      4: 'NFT'
-    },
-    collectionName: 'Creature World NFT',
-    icon: 'tom.jpg',
-    name: 'Creature #9908',
-    tokenId: 9908,
-    decimals: 18,
-    balances: {
-      4: '0'
-    },
-    address: {
-      4: '0xc7E3428514e78c2511fd732dfEc019A625F5b305'
-    }
-  }
-]

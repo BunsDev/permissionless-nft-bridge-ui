@@ -51,7 +51,6 @@ export const reducer = (state, action) => {
 
     case 'UPDATE_NFT':
       //TODO removed {}...action.payload}
-      console.log(action.payload)
       newState = {
         ...state,
         bridge: {

@@ -2,8 +2,12 @@ import dynamic from 'next/dynamic'
 import React from 'react'
 import { Flex } from 'rebass'
 import styled from 'styled-components'
-import { Copy, CheckCircle } from 'react-feather';
-import { LinkType, TransactionStatus, TransactionType } from '../../constants/transactionStatus'
+import { Copy, CheckCircle } from 'react-feather'
+import {
+  LinkType,
+  TransactionStatus,
+  TransactionType
+} from '../../constants/transactionStatus'
 import { useMuonState } from '../../context'
 import { getTransactionLink } from '../../utils/explorers'
 import { Box } from './Container'
@@ -39,7 +43,7 @@ const ImageSpin = styled.img`
 `
 const Arrow = styled.span`
   padding: 0 5px;
-  font-size:11px;
+  font-size: 11px;
   margin-bottom: 1.5px;
 `
 const CustomTransaction = () => {
@@ -67,15 +71,20 @@ const CustomTransaction = () => {
       }
     })
   }
-  console.log(state.transaction);
   return (
     <Box padding="14px 20px" borderRadius="10px">
-      <Flex justifyContent="space-between" width="100%" style={{ textTransform: "capitalize" }}>
-        <Type.SM fontSize="12.5px" color="#919191">{state.transaction.type}</Type.SM>
+      <Flex
+        justifyContent="space-between"
+        width="100%"
+        style={{ textTransform: 'capitalize' }}
+      >
+        <Type.SM fontSize="12.5px" color="#919191">
+          {state.transaction.type}
+        </Type.SM>
         <Close onClick={handleClose}>&times;</Close>
       </Flex>
 
-      <Flex justifyContent="flex-start" width="100%" marginTop="15px" >
+      <Flex justifyContent="flex-start" width="100%" marginTop="15px">
         {/* {state.transaction.icon && <NftImage
           width={"89px"}
           height={"89px"}
@@ -86,17 +95,24 @@ const CustomTransaction = () => {
           paddingRight="0"
 
         />} */}
-        <div style={{ marginLeft: "20px" }}>
-          <Flex justifyContent="flex-start" alignItems="flex-start" width="100%" alignItems="center" fontSize="12.5px" color="#313144">
-            {state.transaction.fromChain &&
+        <div style={{ marginLeft: '20px' }}>
+          <Flex
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            width="100%"
+            alignItems="center"
+            fontSize="12.5px"
+            color="#313144"
+          >
+            {state.transaction.fromChain && (
               <>
-                <Type.SM >{state.transaction.fromChain}</Type.SM>
+                <Type.SM>{state.transaction.fromChain}</Type.SM>
                 <Arrow>&#10230;</Arrow>
               </>
-            }
-            <Type.SM >{state.transaction.toChain}</Type.SM>
+            )}
+            <Type.SM>{state.transaction.toChain}</Type.SM>
           </Flex>
-          <div style={{ marginTop: "3px" }}>
+          <div style={{ marginTop: '3px' }}>
             <Type.LG color="#313144" fontSizeXS="16px">
               {` ${state.transaction.nftName || ''}`}
             </Type.LG>
@@ -121,8 +137,8 @@ const CustomTransaction = () => {
             state.transaction.status === TransactionStatus.PENDING
               ? '0.5px solid #d2d2d2'
               : state.transaction.status === TransactionStatus.SUCCESS
-                ? '0.5px solid rgba(0, 227, 118, 1)'
-                : '0.5px solid rgba(255, 164, 81, 1)'
+              ? '0.5px solid rgba(0, 227, 118, 1)'
+              : '0.5px solid rgba(255, 164, 81, 1)'
           }
         >
           <Flex
@@ -133,7 +149,9 @@ const CustomTransaction = () => {
           >
             <Flex maxWidth="300px" width="100%" alignItems="center">
               {state.transaction.status === 'pending' ? (
-                <ImageSpin src={`/media/common/${state.transaction.status}.svg`} />
+                <ImageSpin
+                  src={`/media/common/${state.transaction.status}.svg`}
+                />
               ) : (
                 <Image src={`/media/common/${state.transaction.status}.svg`} />
               )}
@@ -145,17 +163,20 @@ const CustomTransaction = () => {
                   LinkType.Transaction
                 )}
               >
-                <Type.SM
-                  fontSize="12.5px"
-                  color="#313144"
-                  fontSizeXS="10px"
-                >
+                <Type.SM fontSize="12.5px" color="#313144" fontSizeXS="10px">
                   {state.transaction.message}
                 </Type.SM>
               </Link>
             </Flex>
-            <CopyToClipboard text={state.transaction.hash} onCopy={() => setCopyTimer()} >
-              {copy ? <CheckCircle color="#5551ff" height="15px" /> : <Copy color="#5551FF" height="15px" />}
+            <CopyToClipboard
+              text={state.transaction.hash}
+              onCopy={() => setCopyTimer()}
+            >
+              {copy ? (
+                <CheckCircle color="#5551ff" height="15px" />
+              ) : (
+                <Copy color="#5551FF" height="15px" />
+              )}
             </CopyToClipboard>
           </Flex>
         </Button>

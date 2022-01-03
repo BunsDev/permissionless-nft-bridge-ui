@@ -22,7 +22,6 @@ const getAssetBalances = async (chains, tokens, account, web3) => {
         const address = calls[i].address
 
         let token = tokens.find((token) => token.address[chain.id] === address)
-        // console.log({ token, chain, id: chain.id })
         // token.balances[chain.id] = getBalanceNumber(
         //   balance,
         //   tokens[address]?.decimals

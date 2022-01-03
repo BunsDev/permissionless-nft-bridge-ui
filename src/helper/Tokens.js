@@ -6,56 +6,12 @@ import {
 } from '../constants/misc'
 import multicall from './multicall'
 
-import { ERC20_ABI, ERC721_ABI } from '../constants/ABI'
-import { isAddress, makeContract } from '.'
+import { ERC721_ABI } from '../constants/ABI'
+import { isAddress } from '.'
 import { AddressZero } from '@ethersproject/constants'
-import { getBalanceNumber } from './formatBalance'
 import { escapeRegExp } from '../utils/utils'
 
-export const getToken = async (address, account, fromChain, web3) => {
-  try {
-    console.log({ address, account, fromChain, web3 })
-    let token = ''
-    if (!isAddress(address) || address === AddressZero) {
-      throw Error(`Invalid 'address' parameter '${address}'.`)
-    }
-
-    const calls = Object.keys(ERC20_FUN).map((methodName) => {
-      if (ERC20_FUN[methodName] === 'balanceOf')
-        return {
-          address: address,
-          name: ERC20_FUN[methodName],
-          params: [account]
-        }
-      else {
-        return {
-          address: address,
-          name: ERC20_FUN[methodName]
-        }
-      }
-    })
-    const result = await multicall(web3, ERC20_ABI, calls, fromChain.id)
-    if (result && result.length > 0) {
-      token = {
-        symbol: result[ERC20_FUN_MAP.symbol][0],
-        name: result[ERC20_FUN_MAP.name][0],
-        tokens: {
-          [fromChain.id]: getBalanceNumber(
-            result[ERC20_FUN_MAP.balanceOf],
-            result[ERC20_FUN_MAP.decimals][0]
-          )
-        },
-        address: {
-          [fromChain.id]: address
-        }
-      }
-    }
-    return token
-  } catch (error) {}
-}
-
 export const getNFT = async (address, account, chain, web3) => {
-  console.log({ address, account, chain, web3 })
   try {
     let token = ''
     if (!isAddress(address) || address === AddressZero) {
@@ -76,10 +32,8 @@ export const getNFT = async (address, account, chain, web3) => {
       //   params: [Number(nftId)]
       // }
     ]
-
     const result = await multicall(web3, ERC721_ABI, calls, chain.id)
 
-    console.log('result ', result)
     if (result && result.length > 0) {
       token = {
         symbol: result[0][0],
@@ -111,7 +65,6 @@ export const findAndAddToken = async (
   let customTokens = JSON.parse(localStorage.getItem('tokens'))
 
   let resultFilter = finalTokens.filter((item) => {
-    console.log('item', item)
     return (
       search.test(item.name) ||
       search.test(item.symbol) ||
@@ -121,9 +74,7 @@ export const findAndAddToken = async (
   })
   if (resultFilter.length === 0 && isAddress(searchQuery)) {
     // step 2: check ERC721 and Add to  localStorage
-    console.log(searchQuery, account, fromChain)
     token = await getNFT(searchQuery, account, fromChain, web3)
-    console.log(token)
 
     if (token) {
       token = { id: searchQuery, ...token }
@@ -162,7 +113,6 @@ export const addTokenToLocalstorage = async (token, tokens, chain) => {
   let customTokens = JSON.parse(localStorage.getItem('tokens'))
 
   let resultFilter = finalTokens.filter((item) => {
-    console.log('item', item)
     return (
       search.test(item.name) ||
       search.test(item.symbol) ||
