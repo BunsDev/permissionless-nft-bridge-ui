@@ -64,7 +64,6 @@ const HomePage = () => {
     const web3 = useCrossWeb3(chainId)
     crossWeb3 = { ...crossWeb3, [chainId]: web3 }
   }
-  console.log({ crossWeb3 })
   React.useEffect(() => {
     dispatch({
       type: 'CLEAN_DATA'
@@ -235,7 +234,7 @@ const HomePage = () => {
 
         for (let index = 0; index < pendingIndex.length; index++) {
           let claim = await originContract.methods
-            .txs(userTxs[pendingIndex[index]])
+            .getTx(userTxs[pendingIndex[index]])
             .call()
           let tokenAddress = await destContract.methods
             .tokens(claim.tokenId)
@@ -258,8 +257,8 @@ const HomePage = () => {
               crossWeb3[state.bridge.toChain.id]
             )
           }
-          console.log(claim)
-          claims.push(claim)
+          console.log({ ...claim, token })
+          claims.push({ ...claim, token })
         }
       } catch (error) {
         console.log('error happend in get Claim', error)
@@ -503,31 +502,22 @@ const HomePage = () => {
 
   React.useEffect(() => {
     const getTokenURI = async () => {
-      console.log('method Get TokenURI')
-
       const Contract = makeContract(
         crossWeb3[state.bridge.fromChain.id],
         ERC721_ABI,
         state.bridge.token.address[state.bridge.fromChain.id]
       )
-      // console.log(account, state.bridge.token.address[state.bridge.fromChain.id]);
-      // return axios.post(BASE_URL, data).then(({ data }) => data)
-      console.log(
-        state,
-        state.bridge.nft.id[0],
-        state.bridge.token.address[state.bridge.fromChain.id],
-        crossWeb3[state.bridge.fromChain.id]
-      )
       try {
         const tokenURI = await Contract.methods
           .tokenURI(state.bridge.nft.id[0])
           .call()
-        console.log('******************', { tokenURI })
         if (tokenURI) {
-          const res = await axios.get(tokenURI)
+          const res = await axios.post(process.env.NEXT_PUBLIC_MUON_NFT_PROXY, {
+            url: tokenURI
+          })
           dispatch({
             type: 'UPDATE_NFT',
-            payload: res.data.response
+            payload: res.data
           })
         }
       } catch (error) {
@@ -1012,14 +1002,7 @@ const HomePage = () => {
       let { sigs, reqId } = muonResponse
 
       setLock(claim)
-      // TODO:  transaction link is not correct
-      console.log({
-        account,
-        nftID: claim.nftId,
-        array: [claim.fromChain, claim.toChain, claim.tokenId, claim.txId],
-        reqId,
-        sigs
-      })
+
       Contract.methods
         .claim(
           account,
@@ -1217,9 +1200,7 @@ const HomePage = () => {
         .method('addBridgeToken', {
           mainTokenAddress:
             state.bridge.token.address[state.bridge.fromChain.id],
-          mainNetwork: state.bridge.fromChain.id,
-          targetNetwork: state.bridge.toChain.id,
-          sourceBridge: MuonNFTBridge[state.bridge.fromChain.id]
+          mainNetwork: state.bridge.fromChain.id
         })
         .call()
       console.log(muonResponse)

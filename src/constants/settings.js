@@ -22,8 +22,7 @@ export const NFT = [
     symbol: 'STARPUNK',
     logo: 'Ronaldo26.png',
     address: {
-      4: '0x884D61Bf117f54C38628EdbAeAF76D2D8C8668b3',
-      80001: '0xcea148817dfde3e4c3c9b49f146e17909c0b9887'
+      4: '0xc7E3428514e78c2511fd732dfEc019A625F5b305'
     }
   }
 ]
@@ -43,7 +42,7 @@ export const tokens = [
       4: '0'
     },
     address: {
-      4: '0x884D61Bf117f54C38628EdbAeAF76D2D8C8668b3'
+      4: '0xc7E3428514e78c2511fd732dfEc019A625F5b305'
     }
   }
 ]
