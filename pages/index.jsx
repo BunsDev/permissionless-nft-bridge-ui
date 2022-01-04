@@ -5,7 +5,7 @@ import Muon from 'muon'
 import { useWeb3React } from '@web3-react/core'
 import { useMuonState } from '../src/context'
 import { findChain, findTokenWithAddress, toWei } from '../src/utils/utils'
-import { chains, validChains, tokens } from '../src/constants/settings'
+import { chains, validChains } from '../src/constants/settings'
 import {
   Tab,
   TabContainer,
@@ -509,7 +509,6 @@ const HomePage = () => {
         const tokenURI = await Contract.methods
           .tokenURI(state.bridge.nft.id[0])
           .call()
-        console.log({ tokenURI, proxy: process.env.NEXT_PUBLIC_MUON_NFT_PROXY })
         if (tokenURI) {
           const res = await axios.post(process.env.NEXT_PUBLIC_MUON_NFT_PROXY, {
             url: tokenURI
