@@ -5,7 +5,7 @@ import Muon from 'muon'
 import { useWeb3React } from '@web3-react/core'
 import { useMuonState } from '../src/context'
 import { findChain, findTokenWithAddress, toWei } from '../src/utils/utils'
-import { chains, validChains } from '../src/constants/settings'
+import { chains, NFT, validChains } from '../src/constants/settings'
 import {
   Tab,
   TabContainer,
@@ -1280,7 +1280,7 @@ const HomePage = () => {
           })
           addTokenToLocalstorage(
             { ...state.bridge.token, address },
-            tokens,
+            NFT,
             state.bridge.toChain
           )
           dispatch({
