@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const ChangeNetwork = styled.div`
   padding: ${({ padding }) => padding};
   width: 100%;
-  font-family: 'FH Oscar';
+
   font-size: 12.5px;
   color: #919191;
 `
@@ -20,13 +20,13 @@ export const CopyBtn = styled.div`
   background: #ffffff;
   border: 0.25px solid #efefef;
   border-radius: 25px;
-  font-family: FH Oscar;
+
   font-style: normal;
   font-weight: 500;
   font-size: 7.5px;
   cursor: pointer;
   text-transform: uppercase;
-  color: ${({ color }) => color || "#5551ff"};
+  color: ${({ color }) => color || '#5551ff'};
 `
 export const WrapTokenAddress = styled.div`
   width: ${({ width }) => width};
@@ -97,29 +97,27 @@ export const Tab = styled(Flex)`
   height: 55px;
   justify-content: center;
   align-items: center;
-  font-family: FH Oscar;
+
   font-style: normal;
   font-weight: normal;
   font-size: 15px;
   line-height: 18px;
-  cursor: ${({ active }) => (!active ? "pointer" : "default")};
+  cursor: ${({ active }) => (!active ? 'pointer' : 'default')};
   color: ${({ active }) => (active ? '#5551ff' : 'rgba(49, 49, 68, 0.5)')};
   border-bottom: ${({ active }) =>
     active ? '1px solid #5551ff' : '1px solid transparent'};
   text-transform: uppercase;
-  &:hover{
-    color: ${({ active }) => (!active && '#5551ff')};
+  &:hover {
+    color: ${({ active }) => !active && '#5551ff'};
   }
 `
 
 export const Title = styled.div`
-  font-family: Reckless;
-  font-style: normal;
-  font-weight: normal;
+  font-weight: bold;
   font-size: 25px;
-  line-height: 25px;
+  line-height: 30px;
   text-align: center;
-  color: #5f5cfe;
+  color: #313144;
   margin: ${({ margin }) => margin};
   @media screen and (max-width: 1200px) {
     display: none !important;
@@ -127,6 +125,16 @@ export const Title = styled.div`
   @media screen and (max-width: 576px) {
     font-size: 17px;
   }
+`
+
+export const GradientTitle = styled.div`
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 30px;
+  margin: ${({ margin }) => margin};
+  background: -webkit-linear-gradient(10deg, #5551ff 0%, #d08f85 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `
 export const Badge = styled.div`
   position: absolute;
@@ -141,4 +149,47 @@ export const Badge = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+
+export const TriangleDown = styled.div`
+  width: 0;
+  height: 0;
+  border-left: 116px solid transparent;
+  border-right: 116px solid transparent;
+  border-top: 24px solid #d3dbe3;
+`
+export const BoxDestination = styled.div`
+  max-width: ${({ maxWidth }) => maxWidth};
+  width: 100%;
+  height: 190px;
+  background: linear-gradient(0deg, #d3dbe3 0%, rgba(231, 235, 243, 0) 105.18%);
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px
+    ${({ shadowColor }) =>
+      shadowColor ? shadowColor : 'rgba(239, 239, 239, 0.25)'};
+  border-radius: ${({ borderRadius }) =>
+    borderRadius ? borderRadius : '10px'};
+  margin-top: ${({ marginTop }) => `${marginTop}px`};
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: ${({ padding }) => (padding ? padding : '20px')};
+  border-top: none;
+  position: absolute;
+  bottom: 0;
+`
+export const ModalItem = styled.div`
+  background: #2b2b3c;
+  border: 1px solid rgba(172, 175, 243, 0.29);
+  margin: 7.5px auto;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background: #42425f;
+  }
 `

@@ -33,7 +33,7 @@ const ClaimToken = (props) => {
   return (
     <Box borderRadius="10px" padding="14px 20px 19px">
       <Flex width="100%">
-        <Type.SM fontSize="12.5px" color="#919191" fontFamily="FH Oscar">
+        <Type.SM fontSize="12.5px" color="#919191">
           Claim NFT
         </Type.SM>
       </Flex>
@@ -71,24 +71,16 @@ const ClaimToken = (props) => {
                     paddingRight="0"
                   />
                 )} */}
-                <Type.LG
-                  fontFamily="FH Oscar"
-                  color="#313144"
-                  fontSizeXS="16px"
-                >
+                <Type.LG color="#313144" fontSizeXS="16px">
                   {`${claim.token.name} #${claim.nftId}`}
                 </Type.LG>
                 <NetWork>
-                  <Type.XS
-                    color="#313144"
-                    fontSize="10.5px"
-                    fontFamily="FH Oscar"
-                  >
+                  <Type.XS color="#313144" fontSize="10.5px">
                     {chain.symbol}
                   </Type.XS>
                 </NetWork>
               </Flex>
-              {/* <Type.LG color="#313144" fontFamily="FH Oscar" fontSizeXS="16px">
+              {/* <Type.LG color="#313144"  fontSizeXS="16px">
                 {amount}
               </Type.LG> */}
             </Flex>
@@ -100,12 +92,7 @@ const ClaimToken = (props) => {
                 height="35px"
                 onClick={() => handleClaim({ ...claim })}
               >
-                <Type.SM
-                  fontSize="12.5px"
-                  color="#ffffff"
-                  fontFamily="FH Oscar"
-                  cursor="pointer"
-                >
+                <Type.SM fontSize="12.5px" color="#ffffff" cursor="pointer">
                   Claim NFT
                 </Type.SM>
               </Button>
@@ -117,11 +104,7 @@ const ClaimToken = (props) => {
                 height="35px"
                 onClick={() => addRPC(claim.toChain)}
               >
-                <Type.SM
-                  fontSize="12.5px"
-                  color="#313144"
-                  fontFamily="FH Oscar"
-                >
+                <Type.SM fontSize="12.5px" color="#313144">
                   Switch to {NameChainMap[claim.toChain]}
                 </Type.SM>
               </Button>

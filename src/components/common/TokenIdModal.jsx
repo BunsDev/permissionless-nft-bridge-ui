@@ -10,22 +10,31 @@ if (typeof window !== 'undefined') {
   ReactModal.setAppElement('body')
 }
 
+const Wrapper = styled.div`
+  padding: ${({ padding }) => (padding ? padding : '30px')};
+  overflow-y: auto;
+`
+
+const MainWrap = styled.div`
+  border-radius: 20px;
+  background-color: #313144;
+`
+
 const BottomButton = styled.div`
   cursor: pointer;
   &:hover {
-    *{
+    * {
       color: #5551ff;
     }
   }
 `
 const ConfirmButton = styled.div`
-  padding:5px 10px;
+  padding: 5px 10px;
   border-radius: 5px;
-  background: ${({ active }) => (active ? "#5F5CFE" : "#D7D7D7")};
-  cursor: ${({ active }) => (active ? "pointer" : "default")};
-  color:${({ active }) => (active ? '#ffffff' : '#909090')};
+  background: ${({ active }) => (active ? '#5F5CFE' : '#D7D7D7')};
+  cursor: ${({ active }) => (active ? 'pointer' : 'default')};
+  color: ${({ active }) => (active ? '#ffffff' : '#909090')};
 `
-
 
 const Modal = (props) => {
   const {
@@ -41,34 +50,33 @@ const Modal = (props) => {
     padding,
     boxShadowColor,
     bottomActionText,
-    bottomAction,
+    bottomAction
   } = props
 
   const { dispatch } = useMuonState()
   const [tokenId, setTokenId] = useState(null)
   const customStyles = {
     overlay: {
-      backgroundColor: 'rgba(0,0,0,0.5)'
+      backgroundColor: 'rgba(49, 49, 68, 0.9)'
     },
     content: {
       top: '50%',
       left: '50%',
       right: 'auto',
       bottom: 'auto',
-      marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
       padding: 0,
       display: 'flex',
       flexDirection: 'column',
       maxWidth: maxWidth ? maxWidth : '450px',
+      background: backgroundColor ? backgroundColor : 'transparent',
       width: '95%',
-      background: backgroundColor ? backgroundColor : '#ffffff',
-      border: border ? border : '0.5px solid #D2D2D2',
-      borderRadius: borderRadius ? borderRadius : '20px',
+      border: border ? border : '0',
       overFlowY: 'hidden',
-      boxSizing: 'border-box',
-      boxShadow: `0px 4px 4px ${boxShadowColor ? boxShadowColor : 'rgba(239, 239, 239, 0.25)'
-        }`
+      boxSizing: 'border-box'
+      // boxShadow: `0px 4px 4px ${
+      //   boxShadowColor ? boxShadowColor : 'rgba(239, 239, 239, 0.25)'
+      // }`
     }
   }
 
@@ -98,59 +106,61 @@ const Modal = (props) => {
       onRequestClose={hide}
       shouldCloseOnOverlayClick={true}
     >
-      <Flex flexDirection="column">
-        <Flex
-          justifyContent="space-between"
-          alignItems="center"
-          padding={padding ? padding : '30px 30px 25px'}
-        >
-          <Type.LG fontFamily="FH Oscar" color="#313144" fontSizeXS="16px">
-            {title}
-          </Type.LG>
-          <ImageWithCursor
-            width="12.5px"
-            height="12.5px"
-            paddingRight="0"
-            src="/media/common/x.svg"
-            onClick={hide}
-          />
-        </Flex>
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        padding={padding ? padding : '15px 15px 15px'}
+      >
+        <Type.MD color="#D3DBE3" fontWeight="bold" fontSizeXS="16px">
+          {title}
+        </Type.MD>
+        <ImageWithCursor
+          width="12.5px"
+          height="12.5px"
+          paddingRight="0"
+          src="/media/common/x.svg"
+          onClick={hide}
+        />
+      </Flex>
+      <MainWrap>
         {search && (
           <Flex
             justifyContent="center"
             alignItems="center"
-            padding="0 25px 30px"
+            padding="32px"
             onKeyPress={(e) => handleKeyPress(e)}
           >
             <Input
               autoFocus={true}
               placeholder={placeholderSearch}
               onChange={(e) => handleSearch(e.target.value)}
+              border="1px solid rgba(172, 175, 243, 0.29)"
             />
           </Flex>
         )}
         <BorderBottom />
-      </Flex>
+        {bottomActionText && (
+          <Flex
+            justifyContent="space-between"
+            alignItems="center"
+            padding="15px 25px 17px"
+          >
+            <BottomButton onClick={bottomAction} style={{ cursor: 'pointer' }}>
+              <Type.MD color="#D3DBE3" fontWeight="bold">
+                {bottomActionText}
+              </Type.MD>
+            </BottomButton>
 
-      {bottomActionText && <Flex
-        justifyContent="space-between"
-        alignItems="center"
-        padding="15px 25px 17px"
-      >
-        <BottomButton onClick={bottomAction} style={{ cursor: "pointer" }}>
-          <Type.LG color="#313144" fontSizeXS="16px">
-            {bottomActionText}
-          </Type.LG>
-        </BottomButton>
-
-        <ConfirmButton active={tokenId} onClick={() => onConfirm()} style={{ cursor: "pointer" }}>
-          <Type.LG fontSizeXS="16px">
-            Confirm
-          </Type.LG>
-        </ConfirmButton>
-      </Flex>}
-
-
+            <ConfirmButton
+              active={tokenId}
+              onClick={() => onConfirm()}
+              style={{ cursor: 'pointer' }}
+            >
+              <Type.MD fontWeight="bold">Confirm</Type.MD>
+            </ConfirmButton>
+          </Flex>
+        )}
+      </MainWrap>
     </ReactModal>
   )
 }

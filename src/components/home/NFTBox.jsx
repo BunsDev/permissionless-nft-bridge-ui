@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 import { Selector, Image } from '../common/FormControls'
 import { Type } from '../common/Text'
 import { useMuonState } from '../../context'
+import { ModalItem } from '.'
 const Modal = dynamic(() => import('../common/Modal'))
 const TokenIdModal = dynamic(() => import('../common/TokenIdModal'))
 const CopyToClipboard = dynamic(() => import('react-copy-to-clipboard'))
@@ -31,7 +32,7 @@ const WrapToken = styled.div`
 `
 const Copy = styled.div`
   cursor: pointer;
-  font-family: FH Oscar;
+
   font-size: 8px;
   line-height: 7px;
   color: #5551ff;
@@ -49,7 +50,7 @@ const Copy = styled.div`
 
 const ContractText = styled.div`
   margin-top: 10px;
-  font-family: FH Oscar;
+
   font-size: 12.5px;
   line-height: 15px;
   color: #6f7077;
@@ -89,7 +90,7 @@ const NFTBox = ({
     data.map((item, index) => {
       if (item.address[state.bridge.fromChain.id]) {
         return (
-          <Item
+          <ModalItem
             key={index}
             onClick={() => {
               setOpen(!open)
@@ -106,16 +107,11 @@ const NFTBox = ({
               borderRadius="5px"
             />
             <WrapToken>
-              <Type.LG
-                fontFamily="FH Oscar"
-                color="#313144"
-                fontSizeXS="16px"
-                cursor="pointer"
-              >
+              <Type.MD color="#D3DBE3" cursor="pointer">
                 {item.name}
-              </Type.LG>
+              </Type.MD>
             </WrapToken>
-          </Item>
+          </ModalItem>
         )
       }
     })
@@ -125,12 +121,7 @@ const NFTBox = ({
   }
   return (
     <Wrapper marginBottom={marginBottom}>
-      <Type.SM
-        fontFamily="FH Oscar"
-        color="#313144"
-        fontSize="12.5px"
-        padding="5px 10px"
-      >
+      <Type.SM color="#313144" fontSize="12.5px" padding="5px 10px">
         {label}
       </Type.SM>
       <Selector
@@ -152,24 +143,14 @@ const NFTBox = ({
             paddingRight="0"
           />
           <div style={{ marginLeft: '21px' }}>
-            <Type.LG
-              fontFamily="FH Oscar"
-              color="#313144"
-              cursor="pointer"
-              fontSizeXS="16px"
-            >
+            <Type.MD color="#313144" cursor="pointer" fontSizeXS="16px">
               {currentToken
                 ? currentToken.name
                   ? currentToken.name
                   : `${currentNFT.symbol} #${currentToken.id}`
                 : defaultNFT.name}
-            </Type.LG>
-            <Type.MD
-              fontFamily="FH Oscar"
-              color="#6F7077"
-              cursor="pointer"
-              fontSizeXS="16px"
-            >
+            </Type.MD>
+            <Type.MD color="#6F7077" cursor="pointer" fontSizeXS="16px">
               {currentToken ? currentNFT.name : defaultNFT.collectionName}
             </Type.MD>
           </div>

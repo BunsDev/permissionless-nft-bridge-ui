@@ -31,15 +31,17 @@ const Info = (props) => {
           <Circle background={generateBridge ? '#00e376' : '#DC5151'} />
           <Type.SM
             fontSize="12px"
-            fontFamily="FH Oscar"
             fontSizeXXS="9px"
             color={generateBridge ? 'rgba(0, 227, 118, 1)' : '#DC5151'}
           >
-            {`${state.bridge.token.name} ${!generateBridge ? 'is not yet available on' : 'is available on'
-              } ${chain.name}`}
+            {`${state.bridge.token.name} ${
+              !generateBridge ? 'is not yet available on' : 'is available on'
+            } ${chain.name}`}
           </Type.SM>
         </Flex>
-        {!generateBridge && <CopyBtn color={!generateBridge && "#000000"}>Info</CopyBtn>}
+        {!generateBridge && (
+          <CopyBtn color={!generateBridge && '#000000'}>Info</CopyBtn>
+        )}
       </WrapTokenAddress>
     </WrapperInfo>
   )

@@ -2,13 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 import { Flex } from 'rebass'
 import dynamic from 'next/dynamic'
-import { Box } from '../common/Container'
+import { Box, Container } from '../common/Container'
 import SelectBox from './SelectBox'
-import { chains } from '../../constants/settings'
+import { chains, validChains } from '../../constants/settings'
 import { useMuonState } from '../../context'
-import { Title } from '.'
+import { Title, GradientTitle, TriangleDown, BoxDestination } from '.'
 import NFTBox from './NFTBox'
 import { Type } from '../common/Text'
+import { NameChainMap } from '../../constants/chainsMap'
+import MuonNetwork from '../common/MuonNetwork'
+import NetworkHint from '../common/NetworkHint'
 
 const CopyTokenAddress = dynamic(() => import('./CopyTokenAddress'))
 const Info = dynamic(() => import('./Info'))
@@ -37,7 +40,6 @@ const Deposit = (props) => {
     loading
   } = props
   const { state } = useMuonState()
-  const borderHover = '0.75px solid rgba(0, 227, 118, 0.5)'
 
   return (
     <Flex
@@ -46,65 +48,68 @@ const Deposit = (props) => {
       alignItems="center"
       width="100%"
     >
-      <Title>Permissionless</Title>
-      <Title margin="0 0 33px">Cross-Chain NFT Bridge</Title>
-      <Box>
-        <Type.SM
-          color="rgba(49, 49, 68, 0.5)"
-          fontSize="12.5px"
-          padding="10px 0"
-          fontFamily="Reckless"
-        >
-          Powered by Muon Network
-        </Type.SM>
-        <Wrapper>
-          <SelectBox
-            label="Select Origin Chain"
-            data={chains}
-            type="chain"
-            value={state.bridge.fromChain.id}
-            onChange={(data) => updateBridge('fromChain', data)}
-            border={'0.75px solid transparent'}
-            borderHover={borderHover}
-          />
-          <NFTBox
-            label="Select an Asset"
-            data={state.showTokens}
-            currentNFT={state.bridge.token}
-            currentToken={state.bridge.nft}
-            type="token"
-            marginBottom="10px"
-            border={
-              state.bridge.fromChain && state.bridge.token
-                ? !state.fromChainTokenExit
-                  ? '0.75px solid rgba(220, 81, 81, 1)'
-                  : '0.75px solid rgba(0, 227, 118, 1)'
-                : '0.75px solid transparent'
-            }
-            borderHover={borderHover}
-            onProjectChange={(data) => {
-              updateBridge('token', data)
-            }}
-            unsetProject={unsetProject}
-            onNFTChange={(data) => {
-              updateBridge('nft', data)
-            }}
-          />
-          {state.bridge.token && state.bridge.fromChain && (
-            <Info
-              generateBridge={state.fromChainTokenExit}
-              chain={state.bridge.fromChain}
-            />
-          )}
+      <Title>Permissionless </Title>
+      <GradientTitle margin="0 0 10px">Cross-Chain NFT Bridge</GradientTitle>
 
-          {state.bridge.token && state.bridge.fromChain && <CopyTokenAddress />}
-          <Flex justifyContent="center" margin="38px 0 25px">
-            <Image src="/media/common/ex.svg" alt="change" />
+      <Container maxWidth="470px">
+        <Box background="linear-gradient(0deg, #D3DBE3 0%, rgba(231, 235, 243, 0) 126.95%)">
+          <Flex flexDirection="column" width="100%">
+            <SelectBox
+              label="Select Origin Chain"
+              placeholder={`${NameChainMap[validChains[0]]}, ${
+                NameChainMap[validChains[1]]
+              }, ...`}
+              data={chains}
+              type="chain"
+              value={state.bridge.fromChain.id}
+              onChange={(data) => updateBridge('fromChain', data)}
+              marginBottom={state.bridge.fromChain.id ? '5px' : '35px'}
+            />
+            {state.bridge.fromChain.id && <NetworkHint error={wrongNetwork} />}
+
+            <NFTBox
+              label="Select an Asset"
+              data={state.showTokens}
+              currentNFT={state.bridge.token}
+              currentToken={state.bridge.nft}
+              type="token"
+              marginBottom="10px"
+              border={
+                state.bridge.fromChain && state.bridge.token
+                  ? !state.fromChainTokenExit
+                    ? '1px solid rgba(220, 81, 81, 1)'
+                    : '1px solid rgba(0, 227, 118, 1)'
+                  : '1px solid #ffffff'
+              }
+              onProjectChange={(data) => {
+                updateBridge('token', data)
+              }}
+              unsetProject={unsetProject}
+              onNFTChange={(data) => {
+                updateBridge('nft', data)
+              }}
+            />
+            {state.bridge.token && state.bridge.fromChain && (
+              <Info
+                generateBridge={state.fromChainTokenExit}
+                chain={state.bridge.fromChain}
+              />
+            )}
+
+            {state.bridge.token && state.bridge.fromChain && (
+              <CopyTokenAddress />
+            )}
           </Flex>
+        </Box>
+
+        <TriangleDown />
+        <BoxDestination>
           <SelectBox
-            marginBottom="10px"
+            marginBottom={state.bridge.toChain.id ? '5px' : '35px'}
             label="Select Destination Chain"
-            placeholder="Destination Chain"
+            placeholder={`${NameChainMap[validChains[0]]}, ${
+              NameChainMap[validChains[1]]
+            }, ...`}
             data={destChains}
             type="chain"
             value={state.bridge.toChain.id}
@@ -112,11 +117,10 @@ const Deposit = (props) => {
             border={
               state.bridge.toChain && state.bridge.token
                 ? !state.toChainTokenExit
-                  ? '0.75px solid rgba(220, 81, 81, 1)'
-                  : '0.75px solid rgba(0, 227, 118, 1)'
-                : '0.75px solid transparent'
+                  ? '1px solid rgba(220, 81, 81, 1)'
+                  : '1px solid rgba(0, 227, 118, 1)'
+                : '1px solid #ffffff'
             }
-            borderHover={borderHover}
           />
           {state.bridge.token && state.bridge.toChain && (
             <>
@@ -127,21 +131,24 @@ const Deposit = (props) => {
               {state.toChainTokenExit && <CopyTokenAddress toChain={true} />}
             </>
           )}
+        </BoxDestination>
+      </Container>
 
-          <ActionButton
-            wrongNetwork={wrongNetwork}
-            handleAddBridgeToken={handleAddBridgeToken}
-            handleAddMainToken={handleAddMainToken}
-            handleConnectWallet={handleConnectWallet}
-            handleDeposit={handleDeposit}
-            handleApprove={handleApprove}
-            loading={loading}
-          />
-          <Flex justifyContent="center" margin="50px 0 20px">
-            <Image src="/media/common/logo.svg" alt="Muon Logo" />
-          </Flex>
-        </Wrapper>
-      </Box>
+      <ActionButton
+        wrongNetwork={wrongNetwork}
+        handleAddBridgeToken={handleAddBridgeToken}
+        handleAddMainToken={handleAddMainToken}
+        handleConnectWallet={handleConnectWallet}
+        handleDeposit={handleDeposit}
+        handleApprove={handleApprove}
+        loading={loading}
+      />
+      <Flex justifyContent="center" margin="50px 0 20px">
+        <Type.SM color="#313144" fontSize="10px" padding="10px">
+          Powered by
+        </Type.SM>
+        <MuonNetwork logo="muonNetworkBlack" />
+      </Flex>
     </Flex>
   )
 }

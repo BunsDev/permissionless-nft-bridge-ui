@@ -29,7 +29,7 @@ const Input = styled.input.attrs({
   max-width: 450px;
   width: 100%;
   outline-style: none;
-  font-family: FH Oscar;
+
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
@@ -74,20 +74,10 @@ const AmountBox = (props) => {
   return (
     <Wrapper margin={margin}>
       <FlexBetween>
-        <Type.SM
-          fontFamily="FH Oscar"
-          color="#313144"
-          fontSize="12.5px"
-          padding="5px 10px"
-        >
+        <Type.SM color="#313144" fontSize="12.5px" padding="5px 10px">
           Amount
         </Type.SM>
-        <Type.SM
-          fontFamily="FH Oscar"
-          color="#919191"
-          fontSize="12.5px"
-          padding="5px 10px"
-        >
+        <Type.SM color="#919191" fontSize="12.5px" padding="5px 10px">
           {tokenBalance}
         </Type.SM>
       </FlexBetween>
@@ -99,11 +89,7 @@ const AmountBox = (props) => {
           onChange={(e) => onChange(e.target.value)}
         />
         <Max onClick={() => onChange(tokenBalance.split(' ')[0])}>
-          <Type.XS
-            fontSize="7.5px"
-            fontFamily="FH Oscar"
-            color="rgba(85, 81, 255, 1)"
-          >
+          <Type.XS fontSize="7.5px" color="rgba(85, 81, 255, 1)">
             MAX
           </Type.XS>
         </Max>

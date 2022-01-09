@@ -1,9 +1,10 @@
 import React from 'react'
 import { Flex } from 'rebass'
 import { useWeb3React } from '@web3-react/core'
-import { Image, Selector } from './FormControls'
+import { Image } from './FormControls'
 import Modal from './Modal'
 import { ConnectorByName } from '../../utils/connectors'
+import { ModalItem } from '../home'
 
 const WalletModal = (props) => {
   const { open, hide } = props
@@ -14,20 +15,19 @@ const WalletModal = (props) => {
     <Modal open={open} hide={hide} title="Connect Wallet">
       {Object.keys(ConnectorByName).map((name) => {
         return (
-          <Selector
+          <ModalItem
             key={name}
             onClick={() => {
               activate(ConnectorByName[name])
               hide()
             }}
-            style={{ width: '95%', cursor: 'pointer' }}
-            margin="0 auto 10px auto"
           >
             <Flex
               padding="0 20px"
               justifyContent="space-between"
               width="100%"
               alignItems="center"
+              color={'#D3DBE3'}
             >
               {name}
               <Image
@@ -37,7 +37,7 @@ const WalletModal = (props) => {
                 src={`/media/common/${name}.svg`}
               />
             </Flex>
-          </Selector>
+          </ModalItem>
         )
       })}
     </Modal>
