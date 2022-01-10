@@ -22,7 +22,6 @@ const Info = (props) => {
       maxWidth="450px"
       width="100%"
       justifyContent="space-between"
-      padding="0 15px"
       alignItems="center"
       marginBottom="3px"
     >

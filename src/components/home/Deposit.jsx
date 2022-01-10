@@ -73,7 +73,7 @@ const Deposit = (props) => {
               currentNFT={state.bridge.token}
               currentToken={state.bridge.nft}
               type="token"
-              marginBottom="10px"
+              marginBottom={state.bridge.token ? '5px' : '35px'}
               border={
                 state.bridge.fromChain && state.bridge.token
                   ? !state.fromChainTokenExit
@@ -97,7 +97,7 @@ const Deposit = (props) => {
             )}
 
             {state.bridge.token && state.bridge.fromChain && (
-              <CopyTokenAddress />
+              <CopyTokenAddress marginBottom="0" />
             )}
           </Flex>
         </Box>

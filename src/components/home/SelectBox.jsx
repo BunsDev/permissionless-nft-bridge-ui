@@ -134,7 +134,7 @@ const SelectBox = (props) => {
         padding="0 18px 0 15px"
         onClick={handleOpenModal}
         border={border}
-        borderHover={borderHover}
+        cursor="pointer"
       >
         {selectedValue ? (
           <Flex alignItems="center">

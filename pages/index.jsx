@@ -348,17 +348,17 @@ const HomePage = () => {
       findClaim()
     }
 
-    const interval = setInterval(() => {
-      if (
-        account &&
-        crossWeb3[state.bridge.toChain.id] &&
-        crossWeb3[state.bridge.fromChain.id]
-      ) {
-        findClaim()
-      }
-    }, 15000)
+    // const interval = setInterval(() => {
+    //   if (
+    //     account &&
+    //     crossWeb3[state.bridge.toChain.id] &&
+    //     crossWeb3[state.bridge.fromChain.id]
+    //   ) {
+    //     findClaim()
+    //   }
+    // }, 15000)
 
-    return () => clearInterval(interval)
+    // return () => clearInterval(interval)
   }, [
     account,
     fetch,
@@ -1356,14 +1356,7 @@ const HomePage = () => {
         )}
       </TabContainer>
       <Wrapper>
-        <ClaimWrapper maxWidth="340px" width="100%" active={active}>
-          {claims.length > 0 && (
-            <ClaimToken
-              claims={claims}
-              handleClaim={(claim) => handleClaim(claim)}
-            />
-          )}
-        </ClaimWrapper>
+        <BoxWrapper maxWidth="340px" width="100%"></BoxWrapper>
 
         <DepositWrapper maxWidth="470px" width="100%" active={active}>
           <Deposit
@@ -1383,6 +1376,15 @@ const HomePage = () => {
         </DepositWrapper>
         <BoxWrapper maxWidth="340px" width="100%">
           {state.transaction.status && <CustomTransaction />}
+          <ClaimWrapper maxWidth="340px" width="100%" active={active}>
+            {claims.length > 0 && (
+              <ClaimToken
+                claims={claims}
+                handleClaim={(claim) => handleClaim(claim)}
+                lock={lock}
+              />
+            )}
+          </ClaimWrapper>
         </BoxWrapper>
       </Wrapper>
       <WalletModal

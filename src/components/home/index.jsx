@@ -4,29 +4,32 @@ import styled from 'styled-components'
 export const ChangeNetwork = styled.div`
   padding: ${({ padding }) => padding};
   width: 100%;
-
-  font-size: 12.5px;
+  font-size: 9px;
   color: #919191;
 `
-export const Span = styled.span`
+export const Span = styled.p`
   color: #5551ff;
 `
 export const CopyBtn = styled.div`
+  height: 15px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #d0d0d3;
+  border-radius: 4px;
   width: 45px;
   padding: 2px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ffffff;
-  border: 0.25px solid #efefef;
   border-radius: 25px;
-
   font-style: normal;
   font-weight: 500;
   font-size: 7.5px;
   cursor: pointer;
   text-transform: uppercase;
-  color: ${({ color }) => color || '#5551ff'};
+  color: #373749;
+  &:hover {
+    filter: brightness(0.9);
+  }
 `
 export const WrapTokenAddress = styled.div`
   width: ${({ width }) => width};
@@ -74,12 +77,14 @@ export const ClaimWrapper = styled(Box)`
   }
 `
 export const WrapperInfo = styled(Flex)`
-  @media screen and (max-width: 576px) {
-    flex-direction: column;
-    & > * {
-      margin-bottom: 5px;
-    }
-  }
+  margin-bottom: ${({ marginBottom }) =>
+    marginBottom ? marginBottom : '22px !important'};
+  // @media screen and (max-width: 576px) {
+  //   flex-direction: column;
+  //   & > * {
+  //     margin-bottom: 5px;
+  //   }
+  // }
 `
 export const TabContainer = styled(Flex)`
   width: 100%;

@@ -130,7 +130,7 @@ const NFTBox = ({
         padding="15px 21px 16px 16px"
         onClick={handleOpenModal}
         border={border}
-        borderHover={borderHover}
+        cursor="pointer"
       >
         <Flex alignItems="flex-start">
           <Image

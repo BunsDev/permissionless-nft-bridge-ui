@@ -42,9 +42,8 @@ const ImageSpin = styled.img`
   }
 `
 const Arrow = styled.span`
-  padding: 0 5px;
-  font-size: 11px;
-  margin-bottom: 1.5px;
+  padding: 0 3px 5px;
+  color: #000000;
 `
 const CustomTransaction = () => {
   const { state, dispatch } = useMuonState()
@@ -72,58 +71,50 @@ const CustomTransaction = () => {
     })
   }
   return (
-    <Box padding="14px 20px" borderRadius="10px">
+    <Box
+      padding="14px 20px"
+      borderRadius="10px"
+      background=" linear-gradient(0deg, #E7EBF3 0%, rgba(231, 235, 243, 0.25) 105.18%)"
+      border="1px solid #ffffff"
+    >
       <Flex
         justifyContent="space-between"
         width="100%"
         style={{ textTransform: 'capitalize' }}
       >
-        <Type.SM fontSize="12.5px" color="#919191">
-          {state.transaction.type}
-        </Type.SM>
+        <Type.SM color="#313144">{state.transaction.type}</Type.SM>
         <Close onClick={handleClose}>&times;</Close>
       </Flex>
-
-      <Flex justifyContent="flex-start" width="100%" marginTop="15px">
-        {/* {state.transaction.icon && <NftImage
-          width={"89px"}
-          height={"89px"}
-          src={`${state.transaction.icon}`}
-          // onError={(e) => (e.target.src = currentNFT ? currentNFT.icon : defaultNFT.icon)}
-          boxSizing="unset"
-          borderRadius="5px"
-          paddingRight="0"
-
-        />} */}
-        <div style={{ marginLeft: '20px' }}>
-          <Flex
-            justifyContent="flex-start"
-            alignItems="flex-start"
-            width="100%"
-            alignItems="center"
-            fontSize="12.5px"
-            color="#313144"
-          >
-            {state.transaction.fromChain && (
-              <>
-                <Type.SM>{state.transaction.fromChain}</Type.SM>
-                <Arrow>&#10230;</Arrow>
-              </>
-            )}
-            <Type.SM>{state.transaction.toChain}</Type.SM>
-          </Flex>
-          <div style={{ marginTop: '3px' }}>
-            <Type.LG color="#313144" fontSizeXS="16px">
-              {` ${state.transaction.nftName || ''}`}
-            </Type.LG>
-
-            <Type.MD color="#6F7077" fontSizeXS="16px">
-              {` ${state.transaction.tokenSymbol || ''}`}
-            </Type.MD>
-          </div>
-        </div>
+      <Flex
+        justifyContent="flex-start"
+        width="100%"
+        marginTop="15px"
+        alignItems="center"
+      >
+        {state.transaction.fromChain && (
+          <>
+            <Type.SM color="#313144">{state.transaction.fromChain}</Type.SM>
+            <Arrow>&rarr;</Arrow>
+          </>
+        )}
+        <Type.SM color="#313144">{state.transaction.toChain}</Type.SM>
       </Flex>
-
+      <Flex justifyContent="space-between" width="100%" marginTop="15px">
+        {state.transaction.tokenSymbol && (
+          <Flex alignItems="center">
+            <Type.MD color="#313144" fontWeight="bold">
+              {state.transaction.tokenSymbol}
+            </Type.MD>
+          </Flex>
+        )}
+        {state.transaction.amount ? (
+          <Type.MD color="#313144" fontWeight="bold">
+            {parseFloat(state.transaction.amount)}
+          </Type.MD>
+        ) : (
+          ''
+        )}
+      </Flex>
       <Flex
         justifyContent="center"
         flexDirection="column"
@@ -135,10 +126,10 @@ const CustomTransaction = () => {
           background="rgba(255, 255, 255, 0.5)"
           border={
             state.transaction.status === TransactionStatus.PENDING
-              ? '0.5px solid #d2d2d2'
+              ? '1px solid #d2d2d2'
               : state.transaction.status === TransactionStatus.SUCCESS
-              ? '0.5px solid rgba(0, 227, 118, 1)'
-              : '0.5px solid rgba(255, 164, 81, 1)'
+              ? '1px solid #00AA58'
+              : '1px solid rgba(255, 164, 81, 1)'
           }
         >
           <Flex
@@ -163,31 +154,31 @@ const CustomTransaction = () => {
                   LinkType.Transaction
                 )}
               >
-                <Type.SM fontSize="12.5px" color="#313144" fontSizeXS="10px">
+                <Type.SM
+                  color={
+                    state.transaction.status === TransactionStatus.SUCCESS
+                      ? '#00AA58'
+                      : '#313144'
+                  }
+                  fontSizeXS="10px"
+                >
                   {state.transaction.message}
                 </Type.SM>
               </Link>
             </Flex>
             <CopyToClipboard
               text={state.transaction.hash}
-              onCopy={() => setCopyTimer()}
+              onCopy={() => setCopy(true)}
             >
               {copy ? (
-                <CheckCircle color="#5551ff" height="15px" />
+                <Type.XS color="#5551ff">copied</Type.XS>
               ) : (
-                <Copy color="#5551FF" height="15px" />
+                <img src="/media/common/copy.svg" />
               )}
             </CopyToClipboard>
           </Flex>
         </Button>
       </Flex>
-      {/* {state.transaction.type === TransactionType.DEPOSIT &&
-        state.transaction.status === TransactionStatus.SUCCESS && (
-          <ChangeNetwork padding="0 10px 7px">
-            <Span> Change to the destination Network </Span>
-            to claim your token on respective networks.
-          </ChangeNetwork>
-        )} */}
     </Box>
   )
 }

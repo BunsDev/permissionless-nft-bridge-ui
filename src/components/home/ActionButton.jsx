@@ -2,6 +2,7 @@ import { useWeb3React } from '@web3-react/core'
 import React from 'react'
 import styled from 'styled-components'
 import { NameChainMap } from '../../constants/chainsMap'
+import { validChains } from '../../constants/settings'
 import {
   TransactionStatus,
   TransactionType
@@ -72,16 +73,33 @@ const ActionButton = (props) => {
 
   if (wrongNetwork || validChainId)
     return (
-      <WarningButtonStyle
-        active={!wrongNetwork}
-        onClick={() => (wrongNetwork ? undefined : addRPC(validChainId))}
+      <Button
+        margin="25px 0 0"
+        background={'rgba(255, 164, 81, 0.2)'}
+        border="1px solid rgba(255, 164, 81, 1)"
+        cursor="pointer"
+        onClick={() =>
+          wrongNetwork
+            ? addRPC(
+                state.bridge.fromChain.id
+                  ? state.bridge.fromChain.id
+                  : validChains[0]
+              )
+            : addRPC(validChainId)
+        }
       >
-        <Type.LG color="rgba(49, 49, 68, 1)" fontSizeXS="16px">
+        <Type.MD color={'rgba(49, 49, 68, 1)'} fontWeight="bold">
           {wrongNetwork
-            ? 'Wrong Network'
+            ? ` Switch to ${
+                NameChainMap[
+                  state.bridge.fromChain.id
+                    ? state.bridge.fromChain.id
+                    : validChains[0]
+                ]
+              }`
             : ` Switch to ${NameChainMap[validChainId]}`}
-        </Type.LG>
-      </WarningButtonStyle>
+        </Type.MD>
+      </Button>
     )
 
   let content = ''
@@ -148,8 +166,12 @@ const ActionButton = (props) => {
       break
     case 'select':
       content = (
-        <Button margin="50px 0 0" cursor="default">
-          <Type.LG color="#909090" fontSizeXS="16px" fontSizeXXS="14px">
+        <Button
+          margin="25px 0 0"
+          cursor="default"
+          background="rgba(85, 81, 255, 0.15)"
+        >
+          <Type.LG color="#8888db" fontSizeXS="16px" fontSizeXXS="14px">
             Select Asset and Chains
           </Type.LG>
         </Button>

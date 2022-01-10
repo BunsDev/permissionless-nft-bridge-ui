@@ -7,49 +7,39 @@ import { addRPC } from '../../utils/addRPC'
 import { findChain } from '../../utils/utils'
 
 import { Box } from '../common/Container'
-import { Image, Button, BorderBottom } from '../common/FormControls'
+import { Image, Button, BorderBottom, ImageSpin } from '../common/FormControls'
 import { Type } from '../common/Text'
 import { ChangeNetwork, Span } from '../home'
 
 const NetWork = styled.div`
-  /* width: 35px; */
-  /* height: 15px; */
+  width: 50px;
+  height: 15px;
   background: rgba(255, 255, 255, 0.5);
-  border: 0.5px solid #d2d2d2;
-  box-sizing: border-box;
-  border-radius: 5px;
+  border: 1px solid #d0d0d3;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   letter-spacing: 0.005em;
   margin-left: 7px;
-  padding: 1px 4px;
 `
 
 const ClaimToken = (props) => {
   const { state } = useMuonState()
-  const { claims, handleClaim } = props
+  const { claims, handleClaim, lock } = props
 
   return (
-    <Box borderRadius="10px" padding="14px 20px 19px">
+    <Box
+      borderRadius="10px"
+      padding="14px 20px 19px"
+      background="linear-gradient(0deg, #E7EBF3 0%, rgba(231, 235, 243, 0.25) 105.18%)"
+      border="1px solid #ffffff"
+    >
       <Flex width="100%">
-        <Type.SM fontSize="12.5px" color="#919191">
-          Claim NFT
-        </Type.SM>
+        <Type.SM color="#313144">Claim Token</Type.SM>
       </Flex>
-      {/* TODO: show info claim it has bug and I have to comment it */}
       {claims.map((claim, index) => {
         const chain = findChain(Number(claim.toChain))
-        // const icon =
-        //   claim.token.symbol.charAt(0) === 'μ'
-        //     ? claim.token.symbol.split('-')[1].toLowerCase()
-        //     : claim.token.symbol.toLowerCase()
-
-        // let token = findTokenWithAddress(
-        //   state.tokens,
-        //   claim.tokenAddress,
-        //   Number(claim.toChain)
-        // )
 
         return (
           <Flex width="100%" padding="0 3px" key={index} flexDirection="column">
@@ -60,29 +50,15 @@ const ClaimToken = (props) => {
               padding="30px 0 0"
             >
               <Flex alignItems="center">
-                {/* {state.transaction.icon && (
-                  <Image
-                    width={'89px'}
-                    height={'89px'}
-                    src={claim.tokenURI}
-                    // onError={(e) => (e.target.src = currentNFT ? currentNFT.icon : defaultNFT.icon)}
-                    boxSizing="unset"
-                    borderRadius="5px"
-                    paddingRight="0"
-                  />
-                )} */}
-                <Type.LG color="#313144" fontSizeXS="16px">
+                <Type.MD color="#313144" fontWeight="bold">
                   {`${claim.token.name} #${claim.nftId}`}
-                </Type.LG>
+                </Type.MD>
                 <NetWork>
-                  <Type.XS color="#313144" fontSize="10.5px">
+                  <Type.XS color="#313144" fontSize="9px">
                     {chain.symbol}
                   </Type.XS>
                 </NetWork>
               </Flex>
-              {/* <Type.LG color="#313144"  fontSizeXS="16px">
-                {amount}
-              </Type.LG> */}
             </Flex>
             {Number(claim.toChain) === state.chainId ? (
               <Button
@@ -95,13 +71,20 @@ const ClaimToken = (props) => {
                 <Type.SM fontSize="12.5px" color="#ffffff" cursor="pointer">
                   Claim NFT
                 </Type.SM>
+                {lock &&
+                  lock.fromChain === claim.fromChain &&
+                  lock.toChain === claim.toChain &&
+                  lock.txId === claim.txId && (
+                    <ImageSpin src={`/media/common/loading.svg`} />
+                  )}
               </Button>
             ) : (
               <Button
                 margin="15px 0 30px"
-                background=" rgba(255, 164, 81, 0.2)"
-                border="0.5px solid rgba(255, 164, 81, 1)"
+                background={'rgba(255, 164, 81, 0.2)'}
+                border="1px solid rgba(255, 164, 81, 1)"
                 height="35px"
+                cursor="pointer"
                 onClick={() => addRPC(claim.toChain)}
               >
                 <Type.SM fontSize="12.5px" color="#313144">
@@ -113,8 +96,7 @@ const ClaimToken = (props) => {
           </Flex>
         )
       })}
-
-      <ChangeNetwork padding="15px 10px 0">
+      <ChangeNetwork padding="0 10px">
         <Span> Switch to the destination Network </Span>
         to claim your token on respective networks.
       </ChangeNetwork>
