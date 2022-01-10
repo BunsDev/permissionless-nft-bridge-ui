@@ -66,7 +66,7 @@ const CopyTokenAddress = (props) => {
             <Type.SM
               fontSize="9px"
               color="#313144"
-              fontSizeXXS="8px"
+              fontSizeXXS="7px"
               padding="0 5px"
             >
               {`${token.symbol} ${
@@ -75,7 +75,7 @@ const CopyTokenAddress = (props) => {
                   : state.bridge.fromChain.symbol
               }:`}
             </Type.SM>
-            <Type.SM fontSize="9px" color="#313144" fontSizeXXS="8px">
+            <Type.SM fontSize="9px" color="#313144" fontSizeXXS="7px">
               {
                 state.bridge.token.address[
                   toChain ? state.bridge.toChain.id : state.bridge.fromChain.id
