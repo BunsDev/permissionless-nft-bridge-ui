@@ -4,8 +4,9 @@ import { Text } from 'rebass/styled-components'
 
 const TextWrapper = styled(Text)`
   color: ${({ color, theme }) => theme[color]};
-  cursor: ${({ cursor }) => (cursor && cursor)};
+  cursor: ${({ cursor }) => cursor && cursor};
   position: ${({ position }) => position};
+  text-transform: ${(textTransform) => textTransform};
   @media screen and (max-width: 576px) {
     font-size: ${({ fontSizeXS }) => fontSizeXS};
   }

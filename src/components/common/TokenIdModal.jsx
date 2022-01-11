@@ -145,17 +145,13 @@ const Modal = (props) => {
             alignItems="center"
             padding="15px 25px 17px"
           >
-            <BottomButton onClick={bottomAction} style={{ cursor: 'pointer' }}>
+            <BottomButton onClick={bottomAction}>
               <Type.MD color="#D3DBE3" fontWeight="bold">
                 {bottomActionText}
               </Type.MD>
             </BottomButton>
 
-            <ConfirmButton
-              active={tokenId}
-              onClick={() => onConfirm()}
-              style={{ cursor: 'pointer' }}
-            >
+            <ConfirmButton active={tokenId} onClick={() => onConfirm()}>
               <Type.MD fontWeight="bold">Confirm</Type.MD>
             </ConfirmButton>
           </Flex>

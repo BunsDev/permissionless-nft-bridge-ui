@@ -142,7 +142,7 @@ const NFTBox = ({
             borderRadius="5px"
             paddingRight="0"
           />
-          <div style={{ marginLeft: '21px' }}>
+          <Flex marginLeft="21px" flexDirection="column">
             <Type.MD color="#313144" cursor="pointer" fontSizeXS="16px">
               {currentToken
                 ? currentToken.name
@@ -153,7 +153,7 @@ const NFTBox = ({
             <Type.MD color="#6F7077" cursor="pointer" fontSizeXS="16px">
               {currentToken ? currentNFT.name : defaultNFT.collectionName}
             </Type.MD>
-          </div>
+          </Flex>
         </Flex>
 
         <Arrow
