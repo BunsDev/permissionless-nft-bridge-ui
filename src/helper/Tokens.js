@@ -10,6 +10,8 @@ import { ERC721_ABI } from '../constants/ABI'
 import { isAddress } from '.'
 import { AddressZero } from '@ethersproject/constants'
 import { escapeRegExp } from '../utils/utils'
+import axios from 'axios'
+import { isObject } from 'lodash'
 
 export const getNFT = async (address, account, chain, web3) => {
   try {
@@ -148,3 +150,55 @@ export const addTokenToLocalstorage = async (token, tokens, chain) => {
     }
   }
 }
+
+export const getOwnedTokens = async (wallet, chain, contract) => 
+{
+  try {
+
+    if (!isAddress(wallet) || wallet === AddressZero) {
+      throw Error(`Invalid 'wallet' parameter '${wallet}'.`)
+    }
+    if (!isAddress(contract) || contract === AddressZero) {
+      throw Error(`Invalid 'contract' parameter '${contract}'.`)
+    }
+
+    const tokenUris = await getTokenUris(wallet, chain.id, contract);
+    var tokenData = {};
+    await Promise.all(
+      Object.keys(tokenUris).map(async (tokenId) => {
+        try {
+          const response = await axios.post(process.env.NEXT_PUBLIC_MUON_NFT_PROXY, {
+            url: tokenUris[tokenId]
+          });
+          tokenData[tokenId] = {
+            image: response.data.image || null
+          };
+        } catch (error) {
+          
+        }
+      })
+    );
+    console.log(tokenData);
+    return tokenData;
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const getTokenUris = async (wallet, chainId, contract) => {
+  try {
+    let response = await axios.get(process.env.NEXT_PUBLIC_MUON_NFT_BACKEND+"/api/tokens/"+
+    wallet+"/"+chainId+"/"+contract);
+    if(response.status === 200 && response.statusText === 'OK')
+    {
+      const result = response.data;
+      if(result.error === 0 && isObject(result.data))
+      {
+        return result.data;
+      }
+    }
+  } catch (error) {
+    console.error("An error occurred while retrieving contract tokens owned by wallet", error);
+  }
+  return [];
+};
