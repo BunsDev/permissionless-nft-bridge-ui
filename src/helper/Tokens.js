@@ -178,7 +178,6 @@ export const getOwnedTokens = async (wallet, chain, contract) =>
         }
       })
     );
-    console.log(tokenData);
     return tokenData;
   } catch (error) {
     console.error(error)
