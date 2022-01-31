@@ -102,40 +102,6 @@ const NFTDropDown = (props) => {
     );
   };
 
-  // const NFTOption = (props) => {
-  //   const {
-  //     imageUrl,
-  //     tokenId,
-  //   } = props;
-
-  //   return (
-  //     <OptionWrapper >
-  //       <Image
-  //         src={imageUrl}
-  //         onError={(e) => (e.target.src = '/media/tokens/default.svg')}
-  //         height="40px"
-  //         width="40px"
-  //         paddingRight="0"
-  //         borderRadius="5px"
-  //       />
-  //       <WrapToken >
-  //         <Type.MD color="#D3DBE3" cursor="pointer">
-  //           #{tokenId}  
-  //           <CheckCircleWrapper>
-  //             {
-  //               !selectedTokenIds.includes(tokenId)?(
-  //                 <Circle size={16} />
-  //               ):(
-  //                 <CheckCircle size={16} />
-  //               )
-  //             }
-  //           </CheckCircleWrapper>
-  //         </Type.MD>
-  //       </WrapToken>
-  //     </OptionWrapper>
-  //   );
-  // }
-
   const NFTOption = (props) => {
     const {
       imageUrl,
@@ -273,20 +239,6 @@ const NFTDropDown = (props) => {
     }
   }, [selectedTokenIds])
 
-  // var options = tokenUris &&
-  //   Object.keys(tokenUris).map((tokenId) => {
-  //     var item = {};
-  //     item.value = tokenId;
-  //     item.label = (
-  //       <NFTOption 
-  //         imageUrl={tokenUris[tokenId].image}
-  //         tokenId={tokenId}
-  //       />
-  //     )
-  //     return item;
-  //   });
-
-  
   const customStyles = {
     control: (base) => ({
       ...base,
