@@ -12,6 +12,7 @@ import { Type } from '../common/Text'
 import { NameChainMap } from '../../constants/chainsMap'
 import MuonNetwork from '../common/MuonNetwork'
 import NetworkHint from '../common/NetworkHint'
+import NFTDropDown from './NFTDropDown'
 
 const CopyTokenAddress = dynamic(() => import('./CopyTokenAddress'))
 const Info = dynamic(() => import('./Info'))
@@ -97,8 +98,12 @@ const Deposit = (props) => {
             )}
 
             {state.bridge.token && state.bridge.fromChain && (
-              <CopyTokenAddress marginBottom="0" />
+              <CopyTokenAddress marginBottom="5px" />
             )}
+            <NFTDropDown 
+              label="Select NFTs"
+              marginBottom='10px'
+            />
           </Flex>
         </Box>
 
