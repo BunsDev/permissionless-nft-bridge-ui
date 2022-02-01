@@ -71,13 +71,13 @@ const NFTDropDown = (props) => {
     setFetchingData(true);
     setSelectedTokenIds([]);
     setTokenUris({});
-    // setOptions([]);
+    setOptions([]);
   }
 
   useEffect(async () => {
+    resetOptionsForLoading();
     if(state.bridge.token && account)
     {
-      resetOptionsForLoading();
       let tokens = await getOwnedTokens(account, 
         state.bridge.fromChain, 
         state.bridge.token.address[state.bridge.fromChain.id]);
@@ -87,7 +87,7 @@ const NFTDropDown = (props) => {
       }
       setFetchingData(false);
     }
-  }, [state.bridge.token]);
+  }, [state.bridge.token, state.bridge.fromChain]);
 
   const Menu = (props) => {
     return (
