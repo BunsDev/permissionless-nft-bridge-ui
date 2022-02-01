@@ -188,7 +188,7 @@ const getTokenUris = async (wallet, chainId, contract) => {
   try {
     let response = await axios.get(process.env.NEXT_PUBLIC_MUON_NFT_BACKEND+"/api/tokens/"+
     wallet+"/"+chainId+"/"+contract);
-    if(response.status === 200 && response.statusText === 'OK')
+    if(response.status === 200)
     {
       const result = response.data;
       if(result.error === 0 && isObject(result.data))
