@@ -117,7 +117,7 @@ const NFTBox = ({
     })
 
   const handleOpenModal = () => {
-    currentNFT ? setOpenId(true) : setOpen(true)
+    setOpen(true)
   }
   return (
     <Wrapper marginBottom={marginBottom}>
@@ -186,22 +186,6 @@ const NFTBox = ({
       >
         {contentModal}
       </Modal>
-
-      <TokenIdModal
-        open={openId ? true : false}
-        hide={() => {
-          setOpenId(!openId)
-        }}
-        title={'Enter TokenIDs for ' + currentNFT?.name}
-        search={type === 'token'}
-        bottomAction={() => {
-          unsetProject()
-          setOpenId(false)
-          setOpen(true)
-        }}
-        bottomActionText={<div>&#8249; Back</div>}
-        placeholderSearch="1,2,3"
-      ></TokenIdModal>
     </Wrapper>
   )
 }
