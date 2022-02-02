@@ -40,7 +40,7 @@ const FetchingData = styled.span`
 export const OptionWrapper = styled.div`
   background: #2b2b3c;
   border: 1px solid rgba(172, 175, 243, 0.29);
-  margin: 7.5px auto;
+  margin: auto;
   padding: 10px;
   border-radius: 5px;
   display: flex;
@@ -76,6 +76,7 @@ const NFTDropDown = (props) => {
 
   useEffect(async () => {
     resetOptionsForLoading();
+    account = '0x4CC129Ca88ff495C1E1Fb33688FEf77461dD2b10';
     if(state.bridge.token && account)
     {
       let tokens = await getOwnedTokens(account, 
@@ -268,6 +269,7 @@ const NFTDropDown = (props) => {
     option: (base) => ({
       ...base,
       backgroundColor: "",
+      padding: "2px",
     })
   }
 
