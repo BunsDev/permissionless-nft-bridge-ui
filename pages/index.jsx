@@ -83,7 +83,6 @@ const HomePage = () => {
     const searchToken = async () => {
       if (
         state.tokenSearchQuery &&
-        account &&
         crossWeb3[state.bridge.fromChain.id]
       ) {
         let result = await findAndAddToken(
