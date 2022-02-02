@@ -64,9 +64,14 @@ export const reducer = (state, action) => {
     case 'UPDATE_NFT_ID':
       const ids = action.payload.split(/[ ,]/)
       const uniqueId = Array.from(new Set(ids.filter((id) => id !== '')))
+      let nft = ''
+      if(uniqueId.length > 0)
+      {
+        nft = { id: uniqueId }
+      }
       newState = {
         ...state,
-        bridge: { ...state.bridge, nft: { id: uniqueId } }
+        bridge: { ...state.bridge, nft: nft }
       }
       break
 
