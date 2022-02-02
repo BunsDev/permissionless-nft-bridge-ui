@@ -26,7 +26,8 @@ export const initState = {
     icon: '',
     fromChain: '',
     toChain: ''
-  }
+  },
+  selectedAsset: ''
 }
 
 export const reducer = (state, action) => {
@@ -176,7 +177,9 @@ export const reducer = (state, action) => {
         }
       }
       break
-
+    case 'UPDATE_SELECTED_ASSET':
+      newState = { ...state, selectedAsset: action.payload }
+      break
     default:
       throw new Error(`${action.type} is not defined in this state!`)
       break

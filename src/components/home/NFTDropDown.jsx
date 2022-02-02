@@ -37,7 +37,7 @@ const FetchingData = styled.span`
   font-weight: 200;
 `
 
-export const OptionWrapper = styled.div`
+const OptionWrapper = styled.div`
   background: #2b2b3c;
   border: 1px solid rgba(172, 175, 243, 0.29);
   margin: auto;
@@ -76,18 +76,22 @@ const NFTDropDown = (props) => {
 
   useEffect(async () => {
     resetOptionsForLoading();
-    if(state.bridge.token && account)
+    if(
+      state.bridge.fromChain && 
+      state.selectedAsset && 
+      account
+    )
     {
       let tokens = await getOwnedTokens(account, 
         state.bridge.fromChain, 
-        state.bridge.token.address[state.bridge.fromChain.id]);
+        state.selectedAsset);
       if(isObject(tokens))
       {
         setTokenUris(tokens);
       }
-      setFetchingData(false);
     }
-  }, [state.bridge.token, state.bridge.fromChain]);
+    setFetchingData(false);
+  }, [state.selectedAsset, state.bridge.fromChain]);
 
   const Menu = (props) => {
     return (

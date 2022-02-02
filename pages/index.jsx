@@ -467,6 +467,10 @@ const HomePage = () => {
               value
             }
           })
+          dispatch({
+            type: 'UPDATE_SELECTED_ASSET',
+            payload: value.address[state.bridge.fromChain.id]
+          })
 
           if (tokenId === '0') {
             dispatch({
