@@ -59,7 +59,7 @@ const NFTDropDown = (props) => {
     border
   } = props;
 
-  const { state } = useMuonState();
+  const { state, dispatch } = useMuonState();
   const { account } = useWeb3React();
   const [tokenUris, setTokenUris] = useState({});
   const [selectedTokenIds, setSelectedTokenIds] = useState([]);
@@ -240,6 +240,10 @@ const NFTDropDown = (props) => {
     {
       setPlaceholder('1,2,3,...');
     }
+    dispatch({
+      type: 'UPDATE_NFT_ID',
+      payload: selectedTokenIds.join(",")
+    });
   }, [selectedTokenIds])
 
   const customStyles = {
