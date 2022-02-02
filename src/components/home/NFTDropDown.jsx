@@ -76,7 +76,6 @@ const NFTDropDown = (props) => {
 
   useEffect(async () => {
     resetOptionsForLoading();
-    account = '0x4CC129Ca88ff495C1E1Fb33688FEf77461dD2b10';
     if(state.bridge.token && account)
     {
       let tokens = await getOwnedTokens(account, 
