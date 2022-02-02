@@ -96,6 +96,10 @@ const NFTBox = ({
               setOpen(!open)
               setOpenId(!openId)
               onProjectChange(item)
+              dispatch({
+                type: 'UPDATE_SHOW_TOKENS',
+                payload: state.tokens
+              })
             }}
           >
             <Image
