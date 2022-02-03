@@ -71,7 +71,10 @@ export const reducer = (state, action) => {
       }
       newState = {
         ...state,
-        bridge: { ...state.bridge, nft: nft }
+        bridge: {
+          ...state.bridge, 
+          nft: nft 
+        }
       }
       break
 
