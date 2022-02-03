@@ -76,7 +76,7 @@ const Deposit = (props) => {
               type="token"
               marginBottom={state.bridge.token ? '5px' : '35px'}
               border={
-                state.bridge.fromChain && state.bridge.token
+                state.bridge.fromChain && state.bridge.token?.id
                   ? !state.fromChainTokenExit
                     ? '1px solid rgba(220, 81, 81, 1)'
                     : '1px solid rgba(0, 227, 118, 1)'
@@ -90,7 +90,7 @@ const Deposit = (props) => {
                 updateBridge('nft', data)
               }}
             />
-            {state.bridge.token && state.bridge.fromChain && (
+            {state.bridge.token?.id && state.bridge.fromChain && (
               <Info
                 generateBridge={state.fromChainTokenExit}
                 chain={state.bridge.fromChain}

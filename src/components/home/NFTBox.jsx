@@ -137,7 +137,7 @@ const NFTBox = ({
         <Flex alignItems="flex-start">
           <Flex flexDirection="column">
             <Type.MD color="#313144" cursor="pointer" fontSizeXS="16px">
-              {currentNFT
+              {currentNFT?.id
                 ? currentNFT.name
                   ? currentNFT.name
                   : `${currentNFT.symbol}`
