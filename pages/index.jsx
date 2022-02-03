@@ -420,6 +420,10 @@ const HomePage = () => {
               value
             }
           })
+          dispatch({
+            type: 'UPDATE_SELECTED_ASSET',
+            payload: ''
+          })
           break
         case 'toChain':
           dispatch({
@@ -617,7 +621,7 @@ const HomePage = () => {
       account &&
       state.bridge.fromChain &&
       state.bridge.token &&
-      state.bridge.nft &&
+      state.bridge.nft.id &&
       crossWeb3[state.bridge.fromChain.id]
     )
       checkApprove()
@@ -668,7 +672,7 @@ const HomePage = () => {
       state.toChainTokenExit &&
       state.bridge.fromChain &&
       state.bridge.token &&
-      state.bridge.nft &&
+      state.bridge.nft?.id &&
       state.bridge.toChain &&
       !state.owner
     ) {
@@ -677,6 +681,14 @@ const HomePage = () => {
         payload: 'notOwner'
       })
       return
+    }
+    if(!state.bridge.nft?.id)
+    {
+      dispatch({
+        type: 'UPDATE_ACTION_BUTTON_TYPE',
+        payload: 'select'
+      })
+      return;
     }
     if (
       state.fromChainTokenExit &&
