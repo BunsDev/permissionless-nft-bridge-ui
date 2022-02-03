@@ -8,8 +8,6 @@ import { Type } from '../common/Text'
 import { useMuonState } from '../../context'
 import { ModalItem } from '.'
 const Modal = dynamic(() => import('../common/Modal'))
-const TokenIdModal = dynamic(() => import('../common/TokenIdModal'))
-const CopyToClipboard = dynamic(() => import('react-copy-to-clipboard'))
 
 const Wrapper = styled.div`
   cursor: pointer;
@@ -137,25 +135,13 @@ const NFTBox = ({
         cursor="pointer"
       >
         <Flex alignItems="flex-start">
-          <Image
-            width={'89px'}
-            height={'89px'}
-            src={`${currentToken?.logo ? currentToken.logo : defaultNFT.logo}`}
-            // onError={(e) => (e.target.src = currentToken ? currentNFT.logo : defaultNFT.icon)}
-            boxSizing="unset"
-            borderRadius="5px"
-            paddingRight="0"
-          />
-          <Flex marginLeft="21px" flexDirection="column">
+          <Flex flexDirection="column">
             <Type.MD color="#313144" cursor="pointer" fontSizeXS="16px">
-              {currentToken
-                ? currentToken.name
-                  ? currentToken.name
-                  : `${currentNFT.symbol} #${currentToken.id}`
+              {currentNFT
+                ? currentNFT.name
+                  ? currentNFT.name
+                  : `${currentNFT.symbol}`
                 : defaultNFT.name}
-            </Type.MD>
-            <Type.MD color="#6F7077" cursor="pointer" fontSizeXS="16px">
-              {currentToken ? currentNFT.name : defaultNFT.collectionName}
             </Type.MD>
           </Flex>
         </Flex>
