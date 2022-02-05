@@ -120,14 +120,14 @@ const Deposit = (props) => {
             value={state.bridge.toChain.id}
             onChange={(data) => updateBridge('toChain', data)}
             border={
-              state.bridge.toChain && state.bridge.token
+              state.bridge.toChain && state.bridge.token?.id
                 ? !state.toChainTokenExit
                   ? '1px solid rgba(220, 81, 81, 1)'
                   : '1px solid rgba(0, 227, 118, 1)'
                 : '1px solid #ffffff'
             }
           />
-          {state.bridge.token && state.bridge.toChain && (
+          {state.bridge.token?.id && state.bridge.toChain && (
             <>
               <Info
                 generateBridge={state.toChainTokenExit}
