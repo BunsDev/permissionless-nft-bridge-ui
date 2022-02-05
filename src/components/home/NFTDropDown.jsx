@@ -277,6 +277,10 @@ const NFTDropDown = (props) => {
       ...base,
       backgroundColor: "",
       padding: "2px",
+      ':active': {
+        ...base[':active'],
+        backgroundColor: undefined,
+      }
     })
   }
 
